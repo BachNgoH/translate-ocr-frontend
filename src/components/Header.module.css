@@ -1,0 +1,33 @@
+.header {
+  top: 0;
+  width: 100%;
+  background-color: var(--lavenderBlue);
+  display: flex;
+  height: 5rem;
+  position: fixed;
+  justify-content: space-around;
+  z-index: 10;
+}
+
+.card {
+  width: 40%;
+  margin: 1rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.card select {
+  font-size: 1rem;
+  color: #000;
+  color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 0 #000;
+  width: 105%;
+  height: 105%;
+  border-radius: 14px;
+  margin: 0;
+  text-align-last: center;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}

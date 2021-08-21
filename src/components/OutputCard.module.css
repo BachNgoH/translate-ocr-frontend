@@ -1,0 +1,23 @@
+.card {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  width: 80%;
+  max-width: 800px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card h3 {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  padding: 14px 0;
+  border-bottom: solid #ccc 3px;
+}
+
+.card div {
+  margin-top: 1rem;
+  height: 15rem;
+  overflow: auto;
+}

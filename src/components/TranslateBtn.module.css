@@ -1,0 +1,15 @@
+.btn {
+  margin: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 90%;
+  max-width: 800px;
+  align-self: center;
+  font-size: large;
+}
+
+.btn:hover {
+  background-color: var(--cornflowerBlue);
+}
