@@ -1,7 +1,9 @@
 import { Fragment, useState } from "react";
+import Button from "../UI/Button";
 import InputCard from "./InputCard";
 import OutputCard from "./OutputCard";
 import TranslateBtn from "./TranslateBtn";
+import classes from "./TranslateForm.module.css";
 
 const TranslateForm = (props) => {
   const [outputText, setOutputText] = useState("");
@@ -47,12 +49,51 @@ const TranslateForm = (props) => {
       return;
     }
   };
+  const onSummarize = async (event) => {
+    event.preventDefault();
+    const text = props.inputText;
+
+    setIsLoading(true);
+    const data = new FormData();
+    data.append("text", text);
+    data.append("mode", props.summarizeMode);
+    // console.log(props.inputLang);
+    // console.log(props.outputLang);
+    if (text.trim().length > 0) {
+      try {
+        const res = await fetch("http://192.168.1.12:5000/api/summarize", {
+          method: "POST",
+          body: data,
+        });
+        const response = await res.json();
+        console.log(response);
+        console.log(response);
+        setOutputText(response.summary);
+        setIsLoading(false);
+      } catch (e) {
+        alert(e);
+        setIsLoading(false);
+      }
+    } else {
+      // console.log("error");
+      setIsLoading(false);
+      setOutputText("");
+      return;
+    }
+  };
 
   return (
     <Fragment>
       <form style={{ width: "100%", display: "flex", flexDirection: "column" }}>
         <InputCard onChange={props.onChangeText} input={props.inputText} />
-        <TranslateBtn onSubmit={onSubmit} isLoading={isLoading} />
+        {props.isTranslate && (
+          <TranslateBtn onSubmit={onSubmit} isLoading={isLoading} />
+        )}
+        {props.isSummarize && (
+          <Button className={classes.btn} type="submit" onClick={onSummarize}>
+            <h3>{isLoading ? "Summarizing..." : "Summarize"}</h3>
+          </Button>
+        )}
       </form>
       <OutputCard value={outputText} />
     </Fragment>

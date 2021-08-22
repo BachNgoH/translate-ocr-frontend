@@ -4,11 +4,31 @@ import Header from "./components/Header";
 import TranslateForm from "./components/TranslateForm";
 import ImagePage from "./components/ImagePage";
 import { useState } from "react";
+import SettingBubble from "./components/SettingBubble";
 
 function App() {
   const [inputText, setInputText] = useState("");
   const [inputLang, setInputLang] = useState("en");
   const [outputLang, setOutputLang] = useState("vi");
+  const [summarizeMode, setSummarizeMode] = useState("abstractive");
+
+  const [showOptions, setShowOptions] = useState(false);
+  const [isTranslate, setIsTranslate] = useState(true);
+  const [isSummarize, setIsSummarize] = useState(false);
+  const onChangeShowOption = () => {
+    setShowOptions((state) => !state);
+  };
+
+  const onSetTranslateHandler = () => {
+    setIsTranslate(true);
+    setIsSummarize(false);
+    setShowOptions(false);
+  };
+  const onSetSummarizeHandler = () => {
+    setIsTranslate(false);
+    setIsSummarize(true);
+    setShowOptions(false);
+  };
 
   const onChangeText = (text) => {
     text = text.target.value;
@@ -26,6 +46,10 @@ function App() {
     setOutputLang(text);
   };
 
+  const changeSummarizeModeHandler = (mode) => {
+    setSummarizeMode(mode);
+  };
+
   return (
     <Switch>
       <Route path="/" exact>
@@ -33,6 +57,9 @@ function App() {
           <Header
             onInputChange={changeInputLangHandler}
             onOutputChange={changeOutputLangHandler}
+            isTranslate={isTranslate}
+            isSummarize={isSummarize}
+            onSummarizeModelChange={changeSummarizeModeHandler}
           />
           <div className="mainBar">
             <TranslateForm
@@ -40,8 +67,19 @@ function App() {
               inputText={inputText}
               inputLang={inputLang}
               outputLang={outputLang}
+              isTranslate={isTranslate}
+              isSummarize={isSummarize}
+              summarizeMode={summarizeMode}
             />
           </div>
+          <SettingBubble
+            onChangeShowOption={onChangeShowOption}
+            showOptions={showOptions}
+            isTranslate={isTranslate}
+            isSummarize={isSummarize}
+            setIsTranslate={onSetTranslateHandler}
+            setIsSummarize={onSetSummarizeHandler}
+          />
           <ImagePage
             onReadText={onReadText}
             inputLang={inputLang}

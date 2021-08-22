@@ -93,7 +93,10 @@ const ImagePage = (props) => {
     setIsLoading(true);
 
     const data = new FormData();
-    data.append("file", audio);
+
+    data.append("voice", audio, "audio.wav");
+
+    console.log(data);
 
     if (audio === null) {
       return;
@@ -233,7 +236,6 @@ const ImagePage = (props) => {
           <Loader type="Oval" color="#7796cb" height={50} width={50} />
         )}
       </form>
-
       <form
         onSubmit={handleSendAudio}
         style={{ display: "flex", alignItems: "center", width: "5rem" }}
@@ -241,22 +243,21 @@ const ImagePage = (props) => {
         {isVoicing && (
           <Fragment>
             <Button className={classes.btn} type="button">
-              <label htmlFor="voices">
+              <label htmlFor="audio">
                 <FontAwesomeIcon icon={faMicrophoneAlt} size="2x" />
               </label>
             </Button>
             <input
-              id="voices"
+              id="audio"
               style={{ visibility: "hidden", width: "0" }}
               type="file"
               accept="audio/*"
               onChange={onVoicing}
-              capture
             />
           </Fragment>
         )}
         {!isVoicing && !isLoading && (
-          <Button className={classes.btn} disable={isUploading}>
+          <Button className={classes.btn}>
             <FontAwesomeIcon icon={faForward} size="2x" />
           </Button>
         )}
